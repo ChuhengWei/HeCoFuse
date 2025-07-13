@@ -5,8 +5,7 @@
 Official implementation of our CVPR 2025 paper:
 
 > **HeCoFuse: Cross-Modal Complementary V2X Cooperative Perception with Heterogeneous Sensors**  
-> Chuheng Wei*, Asta Chen*, Mathew Zhang, Edison Liu, Ziyan Wang, Matthew J. Barth  
-> *Equal contribution
+> Chuheng Wei*, Ziye Qin, Walter Zimmer, Guoyuan Wu, Matthew J. Barth  
 
 🏆 **Winner of the CVPR 2025 DriveX Challenge**  
 📄 [Paper Coming Soon]  
