@@ -124,7 +124,7 @@ class HeterogeneousFuser(nn.Module):
         # Original feature shape
         original_shape = vehicle_feat.shape[2:]
 
-        # New: adaptive spatial downsampling, downsample large feature maps, keep small ones unchanged
+        
         if self.spatial_downsample > 1 and (original_shape[0] > 32 or original_shape[1] > 32):
             target_h = original_shape[0] // self.spatial_downsample
             target_w = original_shape[1] // self.spatial_downsample
@@ -135,7 +135,7 @@ class HeterogeneousFuser(nn.Module):
 
             # print(f"Downsampled features from {original_shape} to {vehicle_feat_down.shape[2:]}")
         else:
-            # Don't downsample small feature maps
+            
             vehicle_feat_down = vehicle_feat
             roadside_feat_down = roadside_feat
 
@@ -170,17 +170,17 @@ class HeterogeneousFuser(nn.Module):
         if self.training and self.dropout > 0:
             fused_feature = self.dropout_layer(fused_feature)
 
-        # New: if downsampling was applied earlier, now restore original size
+        # if downsampling was applied earlier, now restore original size
         if self.spatial_downsample > 1 and fused_feature.shape[2:] != original_shape:
             fused_feature = F.interpolate(
                 fused_feature, size=original_shape, mode='bilinear', align_corners=False)
             # print(f"Upsampled fused features back to {original_shape}")
 
-        # Apply output projection (if needed)
+        # Apply output projection
         if self.output_proj is not None:
             fused_feature = self.output_proj(fused_feature)
 
-        # Check and handle NaN (though unlikely with normalization and simple fusion)
+        # Check and handle NaN
         if torch.isnan(fused_feature).any():
             print("WARNING: NaN values detected in output, replacing with zeros")
             fused_feature = torch.nan_to_num(fused_feature, nan=0.0)
