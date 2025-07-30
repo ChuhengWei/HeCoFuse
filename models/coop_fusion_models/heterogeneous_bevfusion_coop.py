@@ -485,7 +485,7 @@ class HeterogeneousBEVFusionCoop(BEVFusionCoop):
             else:
                 x = neck_out
 
-                # Also check feature map size
+                # Check feature map size
                 expected_size = (128, 128)
                 if hasattr(self, 'expected_feat_h') and hasattr(self, 'expected_feat_w'):
                     expected_size = (self.expected_feat_h, self.expected_feat_w)
@@ -512,7 +512,7 @@ class HeterogeneousBEVFusionCoop(BEVFusionCoop):
             traceback.print_exc()
             raise e
 
-        # Same training and inference processing logic as original code
+        
         if self.training:
             outputs = {}
             for type, head in self.heads.items():
